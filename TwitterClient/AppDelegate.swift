@@ -53,17 +53,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             // where the access token attached to this get request?
             // Answer: saved and hided in the manager
-            twitterClient?.get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            twitterClient?.get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (_ , response: Any?) in
                 print(response!)
+                let userDictionary = response as! [String:AnyObject]
+                let user = User(dictionary: userDictionary)
+                print("name: \(user.name!)")
+                print("screen_name: \(user.screenname!)")
+                print("profile_url: \(user.profileUrl)")
+                print("description: \(user.tagline)")
                 
             }, failure: { (task: URLSessionDataTask?, error :Error) in
                 print(error.localizedDescription)
             })
             
             twitterClient?.get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (_, response: Any?) in
-                let tweets = response as! [AnyObject]
+//                let tweets = response as! [AnyObject]
+//                for tweet in tweets {
+//                    print(tweet)
+//                }
+                
+                let tweets = Tweet.tweetsWithArray(dictionaries: response as! [AnyObject])
                 for tweet in tweets {
-                    print(tweet)
+                    print("\(tweet.text!)")
                 }
             }, failure: { (_, error: Error) in
                 
