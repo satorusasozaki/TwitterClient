@@ -18,7 +18,6 @@ class TwitterClient: BDBOAuth1SessionManager {
     func login(succeess: @escaping () -> (), failure: @escaping (Error) -> ()) {
         loginSuccess = succeess
         loginFailure = failure
-        
         TwitterClient.sharedInstance.deauthorize()
         TwitterClient.sharedInstance.fetchRequestToken(withPath: "oauth/request_token", method: "GET", callbackURL: URL(string: "TwitterClient://oauth"), scope: nil, success: { (requestToken: BDBOAuth1Credential?) in
             

@@ -21,6 +21,8 @@ class LoginViewController: UIViewController {
         TwitterClient.sharedInstance.login(succeess: {() -> () in
             print("Logged In")
             TwitterClient.sharedInstance.currentAccount()
+            // be sure to connect segue from LoginVC to TweetsVC but not login button to TweetsVC, otherwise transition will happen imediately 
+            self.performSegue(withIdentifier: "loginSegue", sender: nil)
         }, failure: {(error: Error) -> () in
             print("Error: \(error.localizedDescription)")
         })
