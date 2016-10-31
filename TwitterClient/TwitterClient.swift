@@ -34,7 +34,13 @@ class TwitterClient: BDBOAuth1SessionManager {
         let requestToken = BDBOAuth1Credential(queryString: url.query)
         fetchAccessToken(withPath: "oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken :BDBOAuth1Credential?) in
             // logged in
-            self.loginSuccess?()
+            
+            self.currentAccount(success: { (user: User) in
+                User.currentUser = user
+                self.loginSuccess?()
+            }, failure: {(error: Error) -> () in
+                self.loginFailure?(error)
+            })
             
         }, failure: { (error :Error?) in
             print("error: \(error?.localizedDescription)")
@@ -43,18 +49,14 @@ class TwitterClient: BDBOAuth1SessionManager {
     }
     
     // this method can be called on sharedInstance but not TwitterClient class
-    func currentAccount() {
+    func currentAccount(success: @escaping (User) -> (), failure: @escaping (Error) -> ()) {
         get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (_ , response: Any?) in
             print(response!)
             let userDictionary = response as! [String:AnyObject]
             let user = User(dictionary: userDictionary)
-            print("name: \(user.name!)")
-            print("screen_name: \(user.screenname!)")
-            print("profile_url: \(user.profileUrl)")
-            print("description: \(user.tagline)")
-            
+            success(user)
         }, failure: { (task: URLSessionDataTask?, error :Error) in
-            print(error.localizedDescription)
+            failure(error)
         })
     }
     
