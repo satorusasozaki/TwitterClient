@@ -44,20 +44,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         print(url.description)
-        let requestToken = BDBOAuth1Credential(queryString: url.query)
-        let client = TwitterClient.sharedInstance
+        
+        // code below will be called when get back from authorization page in safari
+        TwitterClient.sharedInstance.handleOpenUrl(url: url)
 
-        TwitterClient.sharedInstance.fetchAccessToken(withPath: "oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken :BDBOAuth1Credential?) in
-            print("I got the access token: \((accessToken?.token)!)")
-            
-            
-            client.currentAccount()
-            client.homeTimeline()
-
-            
-        }, failure: { (error :Error?) in
-            print("error: \(error?.localizedDescription)")
-        })
         
 
         return true
