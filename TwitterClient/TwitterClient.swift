@@ -10,6 +10,7 @@ import UIKit
 import BDBOAuth1Manager
 
 class TwitterClient: BDBOAuth1SessionManager {
+        
     static let sharedInstance = TwitterClient(baseURL: URL(string: "https://api.twitter.com")!, consumerKey: "O2sRlvGCz5zbX2i7Y08bjQwwP", consumerSecret: "2PRcOD4jAFGHL88CvFwWD3J2NIIWt1gxsX263AZnGhYLiZI3w8")!
     
     var loginSuccess: (() -> ())?
@@ -51,6 +52,7 @@ class TwitterClient: BDBOAuth1SessionManager {
     func logout() {
         deauthorize()
         User.currentUser = nil
+        NotificationCenter.default.post(name: User.userDidLogoutNotification, object: nil)
     }
     
     // this method can be called on sharedInstance but not TwitterClient class
