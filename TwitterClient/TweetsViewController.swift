@@ -24,6 +24,9 @@ class TweetsViewController: UIViewController, UITableViewDataSource {
         })
     }
 
+    @IBAction func onLogoutButton(_ sender: UIBarButtonItem) {
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (self.tweets?.count) ?? 0
     }

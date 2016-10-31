@@ -78,7 +78,13 @@
                             <constraint firstAttribute="trailing" secondItem="n1O-zf-dVf" secondAttribute="trailing" id="rLj-45-Bzt"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="0ly-9B-hcX"/>
+                    <navigationItem key="navigationItem" id="0ly-9B-hcX">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="ahd-mc-FId">
+                            <connections>
+                                <action selector="onLogoutButton:" destination="dDA-yW-lYh" id="2CA-fw-K5Y"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="n1O-zf-dVf" id="j1v-Kp-RXc"/>
                     </connections>

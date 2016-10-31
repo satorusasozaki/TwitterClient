@@ -48,6 +48,11 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
+    func logout() {
+        deauthorize()
+        User.currentUser = nil
+    }
+    
     // this method can be called on sharedInstance but not TwitterClient class
     func currentAccount(success: @escaping (User) -> (), failure: @escaping (Error) -> ()) {
         get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (_ , response: Any?) in
