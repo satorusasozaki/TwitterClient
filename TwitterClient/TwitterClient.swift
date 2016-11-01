@@ -89,4 +89,14 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
+    func retweet(id: Int) {
+        let path = "1.1/statuses/retweet/" + id.description + ".json"
+        post(path, parameters: nil, progress: nil, success: {(_, response: Any?) -> Void in
+            print("\(response) is retweeted")
+        }, failure: {(_, error: Error) -> Void in
+            print("failed to retweet")
+            print("Error:   \(error.localizedDescription)")
+        })
+    }
+    
 }

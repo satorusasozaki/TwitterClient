@@ -9,7 +9,7 @@
 import UIKit
 import MBProgressHUD
 
-class TweetsViewController: UIViewController, UITableViewDataSource {
+class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     var tweets: [Tweet]?
@@ -17,6 +17,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
+        tableView.delegate = self
         MBProgressHUD.showAdded(to: self.view, animated: true)
         TwitterClient.sharedInstance.homeTimeline(success: { (tweets: [Tweet]) in
             MBProgressHUD.hide(for: self.view, animated: true)
@@ -54,6 +55,14 @@ class TweetsViewController: UIViewController, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let tweetVC = storyboard?.instantiateViewController(withIdentifier: "TweetViewController")
+        navigationController?.pushViewController(tweetVC!, animated: true)
+        let tweet = tweets?[indexPath.row]
+        let id = tweet?.id
+        TwitterClient.sharedInstance.retweet(id: id!)
+    }
+    
     func pullToRefresh(refreshControl: UIRefreshControl) {
         MBProgressHUD.showAdded(to: self.view, animated: true)
         TwitterClient.sharedInstance.homeTimeline(success: { (tweets: [Tweet]) in
@@ -67,4 +76,5 @@ class TweetsViewController: UIViewController, UITableViewDataSource {
             print(error.localizedDescription)
         })
     }
+    
 }

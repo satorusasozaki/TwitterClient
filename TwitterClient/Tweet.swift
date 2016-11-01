@@ -20,6 +20,7 @@ class Tweet: NSObject {
     var favoritesCount: Int = 0
     var username: String?
     var profileImageUrl: URL?
+    var id: Int = 0
     
     init(dictionary: [String:AnyObject]) {
         text = dictionary["text"] as? String
@@ -36,6 +37,8 @@ class Tweet: NSObject {
         if let urlString = profileImageUrlString {
             profileImageUrl = URL(string: urlString)
         }
+        
+        id = dictionary["id"] as! Int
     }
     
     class func tweetsWithArray(dictionaries: [AnyObject]) -> [Tweet] {
