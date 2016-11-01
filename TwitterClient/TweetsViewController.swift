@@ -56,11 +56,14 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let tweetVC = storyboard?.instantiateViewController(withIdentifier: "TweetViewController")
-        navigationController?.pushViewController(tweetVC!, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+        //let tweetVC = storyboard?.instantiateViewController(withIdentifier: "TweetViewController")
+        //navigationController?.pushViewController(tweetVC!, animated: true)
         let tweet = tweets?[indexPath.row]
         let id = tweet?.id
-        TwitterClient.sharedInstance.retweet(id: id!)
+//        TwitterClient.sharedInstance.retweet(id: id!)
+//        TwitterClient.sharedInstance.favorite(id: id!)
+        
     }
     
     func pullToRefresh(refreshControl: UIRefreshControl) {
@@ -75,6 +78,14 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
             refreshControl.endRefreshing()
             print(error.localizedDescription)
         })
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "tweetSegue" {
+            let tweetVC = segue.destination as! TweetViewController
+            let indexPath = tableView.indexPathForSelectedRow
+            tweetVC.tweet = tweets?[(indexPath?.row)!]
+        }
     }
     
 }

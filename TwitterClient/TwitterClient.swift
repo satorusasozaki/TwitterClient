@@ -99,4 +99,17 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
+    func favorite(id: Int) {
+        let tweetId: [String:Int] = ["id":id]
+        post("1.1/favorites/create.json", parameters: tweetId, progress: nil, success: {(_, response: Any?) -> Void in
+            print("\(response) is favorited")
+        }, failure: {(_, error: Error) -> Void in
+            print("failed to favorite")
+            print("Error:   \(error.localizedDescription)")
+        })
+    }
+    
+    func reply() {
+        
+    }
 }

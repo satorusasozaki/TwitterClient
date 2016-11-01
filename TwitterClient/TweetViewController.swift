@@ -9,10 +9,11 @@
 import UIKit
 
 class TweetViewController: UIViewController {
-
+    var tweet: Tweet?
+    @IBOutlet weak var tweetLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tweetLabel.text = tweet?.text
         // Do any additional setup after loading the view.
     }
 
