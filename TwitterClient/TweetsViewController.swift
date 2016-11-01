@@ -61,8 +61,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         //navigationController?.pushViewController(tweetVC!, animated: true)
         let tweet = tweets?[indexPath.row]
         let id = tweet?.id
-//        TwitterClient.sharedInstance.retweet(id: id!)
-//        TwitterClient.sharedInstance.favorite(id: id!)
+
         
     }
     

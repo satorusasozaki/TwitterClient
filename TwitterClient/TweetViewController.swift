@@ -11,12 +11,27 @@ import UIKit
 class TweetViewController: UIViewController {
     var tweet: Tweet?
     @IBOutlet weak var tweetLabel: UILabel!
+    
+    @IBOutlet weak var retweetButton: UIButton!
+    @IBOutlet weak var likeButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tweetLabel.text = tweet?.text
-        // Do any additional setup after loading the view.
     }
-
+    
+    @IBAction func onRetweetButton(_ sender: UIButton) {
+        let id = tweet?.id
+        TwitterClient.sharedInstance.retweet(id: id!)
+        sender.setTitle("Retweeted", for: UIControlState.normal)
+    }
+    
+    @IBAction func onLikeButton(_ sender: UIButton) {
+        let id = tweet?.id
+        TwitterClient.sharedInstance.favorite(id: id!)
+        sender.setTitle("Liked", for: UIControlState.normal)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

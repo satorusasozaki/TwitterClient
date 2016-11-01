@@ -64,7 +64,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="186"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tI8-VW-Gk5" id="fqr-Xs-Ny2">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="185"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="185.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NhK-pl-rcP">
@@ -201,7 +201,7 @@
             <objects>
                 <navigationController storyboardIdentifier="TweetsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="XZg-iR-hLY" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NtU-B5-Z2R">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="NtU-B5-Z2R">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -219,7 +219,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NtM-N2-HNb" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="0EC-Uh-Rm0">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="0EC-Uh-Rm0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -250,12 +250,30 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gqf-bk-uvm">
+                                <rect key="frame" x="279" y="133" width="30" height="30"/>
+                                <state key="normal" title="Like"/>
+                                <connections>
+                                    <action selector="onLikeButton:" destination="SNs-Af-5Yw" eventType="touchUpInside" id="hKy-d3-C7s"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dry-1b-aCe">
+                                <rect key="frame" x="66" y="133" width="56" height="30"/>
+                                <state key="normal" title="Retweet"/>
+                                <connections>
+                                    <action selector="onRetweetButton:" destination="SNs-Af-5Yw" eventType="touchUpInside" id="z5T-0g-66C"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Dry-1b-aCe" firstAttribute="top" secondItem="6qU-le-W1v" secondAttribute="bottom" constant="32" id="6mF-PK-P8n"/>
+                            <constraint firstItem="gqf-bk-uvm" firstAttribute="top" secondItem="6qU-le-W1v" secondAttribute="bottom" constant="32" id="CFO-sq-NYn"/>
                             <constraint firstItem="6qU-le-W1v" firstAttribute="leading" secondItem="fVG-dL-XkW" secondAttribute="leadingMargin" constant="16" id="LXJ-Vq-n4j"/>
                             <constraint firstItem="6qU-le-W1v" firstAttribute="top" secondItem="AqS-w2-PBi" secondAttribute="bottom" constant="16" id="Oh7-Y2-JIc"/>
+                            <constraint firstItem="Dry-1b-aCe" firstAttribute="leading" secondItem="fVG-dL-XkW" secondAttribute="leadingMargin" constant="50" id="RQZ-ZD-yuy"/>
                             <constraint firstAttribute="trailing" secondItem="6qU-le-W1v" secondAttribute="trailing" constant="16" id="iRB-nJ-vsZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gqf-bk-uvm" secondAttribute="trailing" constant="50" id="oJR-VA-eIz"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Tweet" id="v5v-76-IcB">
@@ -266,6 +284,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="likeButton" destination="gqf-bk-uvm" id="wZq-P9-usr"/>
+                        <outlet property="retweetButton" destination="Dry-1b-aCe" id="Xrr-II-3aY"/>
                         <outlet property="tweetLabel" destination="6qU-le-W1v" id="duQ-p8-q19"/>
                     </connections>
                 </viewController>
@@ -327,7 +347,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zQ5-dG-HUP" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vTr-Ss-4Xa">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="vTr-Ss-4Xa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

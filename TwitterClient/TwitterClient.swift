@@ -110,7 +110,6 @@ class TwitterClient: BDBOAuth1SessionManager {
     }
     
     func reply(text: String, id: Int) {
-        //let parameters: [String:String] = ["in_reply_to_status_id":text, "id":id.description]
         let parameters: [String:String] = ["status":text, "in_reply_to_status_id":id.description]
         post("1.1/statuses/update.json", parameters: parameters, progress: nil, success: {(_, response: Any?) -> Void in
             print("\(text) is replied")
