@@ -29,6 +29,10 @@ class TweetsViewController: UIViewController, UITableViewDataSource {
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 300
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(pullToRefresh), for: UIControlEvents.valueChanged)
+        tableView.insertSubview(refreshControl, at: 0)
     }
 
     @IBAction func onLogoutButton(_ sender: UIBarButtonItem) {
@@ -46,5 +50,19 @@ class TweetsViewController: UIViewController, UITableViewDataSource {
         cell.timestampLabel.text = tweets?[indexPath.row].timestamp?.description
         cell.profileImageView.setImageWith((tweets?[indexPath.row].profileImageUrl)!)
         return cell
+    }
+    
+    func pullToRefresh(refreshControl: UIRefreshControl) {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        TwitterClient.sharedInstance.homeTimeline(success: { (tweets: [Tweet]) in
+            MBProgressHUD.hide(for: self.view, animated: true)
+            self.tweets = tweets
+            self.tableView.reloadData()
+            refreshControl.endRefreshing()
+        }, failure: {(error: Error) -> () in
+            MBProgressHUD.hide(for: self.view, animated: true)
+            refreshControl.endRefreshing()
+            print(error.localizedDescription)
+        })
     }
 }
