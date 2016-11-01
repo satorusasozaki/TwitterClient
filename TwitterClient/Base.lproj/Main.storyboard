@@ -259,7 +259,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Tweet" id="v5v-76-IcB">
-                        <barButtonItem key="rightBarButtonItem" title="Reply" id="TZJ-jd-fQD"/>
+                        <barButtonItem key="rightBarButtonItem" title="Reply" id="TZJ-jd-fQD">
+                            <connections>
+                                <segue destination="zQ5-dG-HUP" kind="presentation" identifier="replySegue" id="05K-ag-3R6"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tweetLabel" destination="6qU-le-W1v" id="duQ-p8-q19"/>
@@ -268,6 +272,73 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bw3-7V-aR4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2705" y="892"/>
+        </scene>
+        <!--Reply-->
+        <scene sceneID="Ajs-bQ-vYr">
+            <objects>
+                <viewController id="ryU-VC-UT0" customClass="ReplyViewController" customModule="TwitterClient" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="YOr-EH-PwF"/>
+                        <viewControllerLayoutGuide type="bottom" id="32J-qS-SMU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="FyQ-gl-Hyu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" borderStyle="bezel" placeholder="Type here to reply" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="A7O-NF-I2q">
+                                <rect key="frame" x="16" y="80" width="343" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="x9K-4o-V59"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="A7O-NF-I2q" firstAttribute="top" secondItem="YOr-EH-PwF" secondAttribute="bottom" constant="16" id="8Cp-eU-Yv4"/>
+                            <constraint firstItem="A7O-NF-I2q" firstAttribute="leading" secondItem="FyQ-gl-Hyu" secondAttribute="leading" constant="16" id="PTO-FC-TXt"/>
+                            <constraint firstAttribute="trailing" secondItem="A7O-NF-I2q" secondAttribute="trailing" constant="16" id="glE-z7-elq"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Reply" id="pWU-Yp-Jhx">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="eIn-W4-bXL">
+                            <connections>
+                                <action selector="onCancelButton:" destination="ryU-VC-UT0" id="Hh5-YG-2K5"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Reply" id="9hu-GU-sN1">
+                            <connections>
+                                <action selector="onReplyButton:" destination="ryU-VC-UT0" id="PgQ-DJ-vZG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="replyField" destination="A7O-NF-I2q" id="cau-q7-Vy3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1BJ-s3-h4e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4372" y="891.90404797601207"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="BY1-L4-05A">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zQ5-dG-HUP" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vTr-Ss-4Xa">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ryU-VC-UT0" kind="relationship" relationship="rootViewController" id="1WE-ju-vUJ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FgV-MU-HmT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3501.5999999999999" y="891.90404797601207"/>
         </scene>
     </scenes>
 </document>

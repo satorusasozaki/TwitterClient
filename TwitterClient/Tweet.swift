@@ -19,6 +19,7 @@ class Tweet: NSObject {
     var retweetCount: Int = 0
     var favoritesCount: Int = 0
     var username: String?
+    var screenname: String?
     var profileImageUrl: URL?
     var id: Int = 0
     
@@ -39,6 +40,7 @@ class Tweet: NSObject {
         }
         
         id = dictionary["id"] as! Int
+        screenname = dictionary["user"]?["screen_name"] as? String
     }
     
     class func tweetsWithArray(dictionaries: [AnyObject]) -> [Tweet] {

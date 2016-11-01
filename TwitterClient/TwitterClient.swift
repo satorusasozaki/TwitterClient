@@ -109,7 +109,14 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
-    func reply() {
-        
+    func reply(text: String, id: Int) {
+        let parameters: [String:String] = ["in_reply_to_status_id":text, "id":id.description]
+        post("1.1/statuses/update.json", parameters: parameters, progress: nil, success: {(_, response: Any?) -> Void in
+            print("\(text) is replied")
+        }, failure: {(_, error: Error) -> Void in
+            print("\(text) is failed to reply")
+            print("Error:   \(error.localizedDescription)")
+        })
+    
     }
 }
