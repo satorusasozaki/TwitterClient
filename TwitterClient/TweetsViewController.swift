@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class TweetsViewController: UIViewController, UITableViewDataSource {
     
@@ -16,12 +17,18 @@ class TweetsViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         TwitterClient.sharedInstance.homeTimeline(success: { (tweets: [Tweet]) in
+            MBProgressHUD.hide(for: self.view, animated: true)
             self.tweets = tweets
             self.tableView.reloadData()
         }, failure: {(error: Error) -> () in
+            MBProgressHUD.hide(for: self.view, animated: true)
             print(error.localizedDescription)
         })
+        
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 300
     }
 
     @IBAction func onLogoutButton(_ sender: UIBarButtonItem) {
@@ -34,7 +41,10 @@ class TweetsViewController: UIViewController, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell" ) as! TweetCell
-        cell.textLabel?.text = tweets?[indexPath.row].text
+        cell.usernameLabel.text = tweets?[indexPath.row].username
+        cell.bodyTextLabel.text = tweets?[indexPath.row].text
+        cell.timestampLabel.text = tweets?[indexPath.row].timestamp?.description
+        cell.profileImageView.setImageWith((tweets?[indexPath.row].profileImageUrl)!)
         return cell
     }
 }
