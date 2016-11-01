@@ -33,6 +33,8 @@ class TweetsViewController: UIViewController, UITableViewDataSource {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(pullToRefresh), for: UIControlEvents.valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
+        
+        print("isAuthrized: \(TwitterClient.sharedInstance.isAuthorized)")
     }
 
     @IBAction func onLogoutButton(_ sender: UIBarButtonItem) {

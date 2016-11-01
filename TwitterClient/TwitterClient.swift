@@ -76,7 +76,17 @@ class TwitterClient: BDBOAuth1SessionManager {
         }, failure: { (_, error: Error) in
             failure(error)
         })
+
     }
     
+    func tweet(text: String) {
+        let status: [String:String] = ["status":text]
+        post("1.1/statuses/update.json", parameters: status, progress: nil, success: {(_, response: Any?) -> Void in
+            print("\(text) is tweeted")
+        }, failure: {(_, error: Error) -> Void in
+            print("\(text) is failed to tweet")
+            print("Error:   \(error.localizedDescription)")
+        })
+    }
     
 }
