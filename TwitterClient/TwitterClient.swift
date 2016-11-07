@@ -76,10 +76,18 @@ class TwitterClient: BDBOAuth1SessionManager {
         }, failure: { (_, error: Error) in
             failure(error)
         })
-
     }
     
-    func tweet(text: String) {
+    func userTimeline(success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
+        get("1.1/statuses/user_timeline.json", parameters: nil, progress: nil, success: {(_, response: Any?) in
+            let tweets = Tweet.tweetsWithArray(dictionaries: response as! [AnyObject])
+            success(tweets)
+        }, failure: {(_, error: Error) in
+            failure(error)
+        })
+    }
+    
+    func postTweet(text: String) {
         let status: [String:String] = ["status":text]
         post("1.1/statuses/update.json", parameters: status, progress: nil, success: {(_, response: Any?) -> Void in
             print("\(text) is tweeted")
@@ -89,7 +97,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
-    func retweet(id: Int) {
+    func postRetweet(id: Int) {
         let path = "1.1/statuses/retweet/" + id.description + ".json"
         post(path, parameters: nil, progress: nil, success: {(_, response: Any?) -> Void in
             print("\(response) is retweeted")
@@ -99,7 +107,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
-    func favorite(id: Int) {
+    func postFavorite(id: Int) {
         let tweetId: [String:Int] = ["id":id]
         post("1.1/favorites/create.json", parameters: tweetId, progress: nil, success: {(_, response: Any?) -> Void in
             print("\(response) is favorited")
@@ -109,7 +117,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
-    func reply(text: String, id: Int) {
+    func postReply(text: String, id: Int) {
         let parameters: [String:String] = ["status":text, "in_reply_to_status_id":id.description]
         post("1.1/statuses/update.json", parameters: parameters, progress: nil, success: {(_, response: Any?) -> Void in
             print("\(text) is replied")
